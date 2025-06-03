@@ -1,0 +1,103 @@
+input_boolean:
+  clean_living_room:
+    name: Living Room
+    icon: mdi:sofa
+  clean_office:
+    name: Office
+    icon: mdi:desk
+  clean_kitchen:
+    name: Kitchen
+    icon: mdi:fridge-variant
+  clean_bedroom:
+    name: Bedroom
+    icon: mdi:bed-king
+  clean_shower:
+    name: Shower
+    icon: mdi:shower-head
+  clean_hall:
+    name: Hall
+    icon: mdi:door
+  clean_bathroom:
+    name: Bathroom
+    icon: mdi:toilet
+  clean_twice:
+    name: Clean Twice
+    icon: mdi:home
+
+script:
+  clean_selected_rooms:
+    alias: "Clean Selected Rooms"
+    sequence:
+      - service: vacuum.send_command
+        target:
+          entity_id: vacuum.s7_max_ultra
+        data:
+          command: app_segment_clean
+          params:
+            - segments: >
+                {{
+                  [
+                    is_state('input_boolean.clean_living_room', 'on') and 16 or none,
+                    is_state('input_boolean.clean_office', 'on') and 17 or none,
+                    is_state('input_boolean.clean_kitchen', 'on') and 18 or none,
+                    is_state('input_boolean.clean_bedroom', 'on') and 19 or none,
+                    is_state('input_boolean.clean_shower', 'on') and 20 or none,
+                    is_state('input_boolean.clean_hall', 'on') and 22 or none,
+                    is_state('input_boolean.clean_bathroom', 'on') and 23 or none
+                  ] | reject('equalto', none) | list
+                }}
+              repeat: >
+                {{ 2 if is_state('input_boolean.clean_twice', 'on') else 1 }}
+
+  toggle_clean_booleans:
+    alias: Toggle All Clean Booleans
+    mode: single
+    sequence:
+      - choose:
+          - conditions:
+              - condition: and
+                conditions:
+                  - condition: state
+                    entity_id: input_boolean.clean_living_room
+                    state: 'on'
+                  - condition: state
+                    entity_id: input_boolean.clean_office
+                    state: 'on'
+                  - condition: state
+                    entity_id: input_boolean.clean_kitchen
+                    state: 'on'
+                  - condition: state
+                    entity_id: input_boolean.clean_bedroom
+                    state: 'on'
+                  - condition: state
+                    entity_id: input_boolean.clean_shower
+                    state: 'on'
+                  - condition: state
+                    entity_id: input_boolean.clean_hall
+                    state: 'on'
+                  - condition: state
+                    entity_id: input_boolean.clean_bathroom
+                    state: 'on'
+            sequence:
+              - service: input_boolean.turn_off
+                data:
+                  entity_id:
+                    - input_boolean.clean_living_room
+                    - input_boolean.clean_office
+                    - input_boolean.clean_kitchen
+                    - input_boolean.clean_bedroom
+                    - input_boolean.clean_shower
+                    - input_boolean.clean_hall
+                    - input_boolean.clean_bathroom
+        default:
+          - service: input_boolean.turn_on
+            data:
+              entity_id:
+                - input_boolean.clean_living_room
+                - input_boolean.clean_office
+                - input_boolean.clean_kitchen
+                - input_boolean.clean_bedroom
+                - input_boolean.clean_shower
+                - input_boolean.clean_hall
+                - input_boolean.clean_bathroom
+
