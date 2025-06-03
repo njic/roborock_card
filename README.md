@@ -11,5 +11,5 @@ roborock_card.yaml contains card yaml code
 
 
 ![Cleaning](screenshots/1.png)
-![Idle](screenshots/1.png)
-![Idle, no error](screenshots/1.png)
+![Idle](screenshots/2.png)
+![Idle, no error](screenshots/3.png)
