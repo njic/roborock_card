@@ -1,906 +1,900 @@
-views:
-  - title: Kitchen
-    path: home
-    icon: mdi:home
-    cards:
-      - type: custom:layout-card
-        layout_type: grid
-        layout:
-          grid-template-rows: 77px 69px 39px 39px 135px
-        cards:
-          - type: custom:mod-card
-            card_mod: null
-            style: |
-              ha-card {
-                background: var(--card-background-color);
-                border-radius: 15px 15px 0 0;
-                }
-            card:
-              type: custom:layout-card
+type: custom:layout-card
+layout_type: grid
+layout:
+  grid-template-rows: 77px 69px 39px 39px 135px
+cards:
+  - type: custom:mod-card
+    card_mod: null
+    style: |
+      ha-card {
+        background: var(--card-background-color);
+        border-radius: 15px 15px 0 0;
+        }
+    card:
+      type: custom:layout-card
+      layout_type: grid
+      layout:
+        grid-template-rows: 35px 35px
+      cards:
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-columns: 50px auto auto 30px
+            margin: 0
+          cards:
+            - type: custom:button-card
+              show_name: false
+              icon: |
+                [[[
+                  const status = states['sensor.s7_max_ultra_status']?.state;
+                  const room = states['sensor.s7_max_ultra_current_room']?.state;
+                  if (status === 'charging') return 'mdi:car-brake-parking';
+                  if (status === 'returning_home') return 'mdi:home-import-outline';
+                  if (room === 'Living room') return 'mdi:sofa';
+                  if (room === 'Study') return 'mdi:desk';
+                  if (room === 'Kitchen') return 'mdi:fridge-variant';
+                  if (room === 'Bedroom') return 'mdi:bed-king';
+                  if (room === 'Shower') return 'mdi:shower-head';
+                  if (room === 'Hall') return 'mdi:door';
+                  if (room === 'Bathroom') return 'mdi:toilet';
+                  return 'mdi:cog';
+                ]]]
+              tap_action:
+                action: call-service
+                service: vacuum.locate
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - padding: 0
+                icon:
+                  - width: 35px
+                  - color: |
+                      [[[
+                        const status = states['sensor.s7_max_ultra_status']?.state;
+                        const room = states['sensor.s7_max_ultra_current_room']?.state;
+                        if (status === 'charging') return '#50ab53';
+                        if (status === 'returning_home') return '#50ab53';
+                        if (room === 'Living room') return '#a558e8';
+                        if (room === 'Study') return '#ebce86';
+                        if (room === 'Kitchen') return '#3fd1b9';
+                        if (room === 'Bedroom') return '#e36871';
+                        if (room === 'Shower') return '#d49b3f';
+                        if (room === 'Hall') return '#b48149';
+                        if (room === 'Bathroom') return '#50ab53';
+                        return '#524d43';
+                      ]]]
+            - type: custom:layout-card
               layout_type: grid
               layout:
-                grid-template-rows: 35px 35px
-              cards:
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-columns: 50px auto auto 30px
-                    margin: 0
-                  cards:
-                    - type: custom:button-card
-                      show_name: false
-                      icon: |
-                        [[[
-                          const status = states['sensor.s7_max_ultra_status']?.state;
-                          const room = states['sensor.s7_max_ultra_current_room']?.state;
-                          if (status === 'charging') return 'mdi:car-brake-parking';
-                          if (status === 'returning_home') return 'mdi:home-import-outline';
-                          if (room === 'Living room') return 'mdi:sofa';
-                          if (room === 'Study') return 'mdi:desk';
-                          if (room === 'Kitchen') return 'mdi:fridge-variant';
-                          if (room === 'Bedroom') return 'mdi:bed-king';
-                          if (room === 'Shower') return 'mdi:shower-head';
-                          if (room === 'Hall') return 'mdi:door';
-                          if (room === 'Bathroom') return 'mdi:toilet';
-                          return 'mdi:cog';
-                        ]]]
-                      tap_action:
-                        action: call-service
-                        service: vacuum.locate
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                          - padding: 0
-                        icon:
-                          - width: 35px
-                          - color: |
-                              [[[
-                                const status = states['sensor.s7_max_ultra_status']?.state;
-                                const room = states['sensor.s7_max_ultra_current_room']?.state;
-                                if (status === 'charging') return '#50ab53';
-                                if (status === 'returning_home') return '#50ab53';
-                                if (room === 'Living room') return '#a558e8';
-                                if (room === 'Study') return '#ebce86';
-                                if (room === 'Kitchen') return '#3fd1b9';
-                                if (room === 'Bedroom') return '#e36871';
-                                if (room === 'Shower') return '#d49b3f';
-                                if (room === 'Hall') return '#b48149';
-                                if (room === 'Bathroom') return '#50ab53';
-                                return '#524d43';
-                              ]]]
-                    - type: custom:layout-card
-                      layout_type: grid
-                      layout:
-                        grid-template-rows: 12px auto
-                        margin: 0
-                      cards:
-                        - type: custom:button-card
-                          name: Roborock S7
-                          tap_action:
-                            action: call-service
-                            service: vacuum.locate
-                            service_data:
-                              entity_id: vacuum.s7_max_ultra
-                          styles:
-                            name:
-                              - font-size: 16px
-                              - font-weight: bold
-                              - justify-self: start
-                            card:
-                              - background: none
-                              - border: none
-                              - border-radius: 0
-                              - padding-top: 0
-                        - type: custom:button-card
-                          name: |
-                            [[[ 
-                              const status = states['sensor.s7_max_ultra_status']?.state; 
-                              const area = Math.round(states['sensor.s7_max_ultra_cleaning_area']?.state || 0);
-                              const progress = parseInt(states['sensor.s7_max_ultra_cleaning_progress']?.state || '0');
-
-                              const vacuumState = states['vacuum.s7_max_ultra']?.state;
-
-                              const formatStatus = () => {
-                              if (status === 'charging') return 'Ready';
-                              if (vacuumState === 'paused') return 'Paused';
-                              return 'Cleaning';
-                              };
-
-                                const formatTimeAgo = (timestamp) => {
-                                  const now = new Date();
-                                  const then = new Date(timestamp);
-                                  const seconds = Math.floor((now - then) / 1000);
-
-                                  if (isNaN(seconds) || seconds < 60) return 'just now';
-                                  const minutes = Math.floor(seconds / 60);
-                                  if (minutes < 60) return `${minutes} min ago`;
-                                  const hours = Math.floor(minutes / 60);
-                                  if (hours < 24) return `${hours} h ago`;
-                                  const days = Math.floor(hours / 24);
-                                  return `${days} d ago`;
-                                };
-
-                                if (progress === 0) {
-                                  const endTime = states['sensor.s7_max_ultra_last_clean_end']?.state;
-                                  const timeAgo = formatTimeAgo(endTime);
-                                  return `${formatStatus()} • ${area} m² • ${timeAgo}`;
-                                }
-
-                              return `${formatStatus()} • ${area} m² • ${progress}%`;
-                            ]]]
-                          tap_action:
-                            action: call-service
-                            service: vacuum.locate
-                            service_data:
-                              entity_id: vacuum.s7_max_ultra
-                          styles:
-                            name:
-                              - font-size: 10px
-                              - justify-self: start
-                            card:
-                              - background: none
-                              - border: none
-                    - type: custom:button-card
-                      show_name: true
-                      name: |
-                        [[[
-                          const vacuumError = states['sensor.s7_max_ultra_vacuum_error']?.state;
-                          const dockError = states['sensor.s7_max_ultra_dock_error']?.state;
-
-                          if (vacuumError && vacuumError !== 'none') {
-                            let msg = vacuumError.replace(/_/g, ' ');
-                            return msg.charAt(0).toUpperCase() + msg.slice(1) + '!';
-                          }
-
-                          if (dockError && dockError !== 'ok') {
-                            let msg = dockError.replace(/_/g, ' ');
-                            return msg.charAt(0).toUpperCase() + msg.slice(1) + '!';
-                          }
-
-                          const mainBrush = parseFloat(states['sensor.s7_max_ultra_main_brush_time_left']?.state);
-                          if (!isNaN(mainBrush) && mainBrush <= 0) return 'Replace main brush!';
-
-                          const sideBrush = parseFloat(states['sensor.s7_max_ultra_side_brush_time_left']?.state);
-                          if (!isNaN(sideBrush) && sideBrush <= 0) return 'Replace side brush!';
-
-                          const sensor = parseFloat(states['sensor.s7_max_ultra_sensor_time_left']?.state);
-                          if (!isNaN(sensor) && sensor <= 0) return 'Clean sensor!';
-
-                          const filter = parseFloat(states['sensor.s7_max_ultra_filter_time_left']?.state);
-                          if (!isNaN(filter) && filter <= 0) return 'Replace filter!';
-
-                          return '';
-                        ]]]
-                      double_tap_action:
-                        action: call-service
-                        service: button.press
-                        service_data:
-                          entity_id: >
-                            [[[
-                              const vacuumError = states['sensor.s7_max_ultra_vacuum_error']?.state;
-                              const dockError = states['sensor.s7_max_ultra_dock_error']?.state;
-
-                              if (vacuumError && vacuumError !== 'none') return '';
-                              if (dockError && dockError !== 'ok') return '';
-
-                              const mainBrush = parseFloat(states['sensor.s7_max_ultra_main_brush_time_left']?.state);
-                              if (!isNaN(mainBrush) && mainBrush <= 0) return 'button.s7_max_ultra_reset_main_brush_consumable';
-
-                              const sideBrush = parseFloat(states['sensor.s7_max_ultra_side_brush_time_left']?.state);
-                              if (!isNaN(sideBrush) && sideBrush <= 0) return 'button.s7_max_ultra_reset_side_brush_consumable';
-
-                              const sensor = parseFloat(states['sensor.s7_max_ultra_sensor_time_left']?.state);
-                              if (!isNaN(sensor) && sensor <= 0) return 'button.s7_max_ultra_reset_sensor_consumable';
-
-                              const filter = parseFloat(states['sensor.s7_max_ultra_filter_time_left']?.state);
-                              if (!isNaN(filter) && filter <= 0) return 'button.s7_max_ultra_reset_air_filter_consumable';
-
-                              return '';
-                            ]]]
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                          - font-size: 14px
-                          - color: "#e36871"
-                          - padding-top: 6px
-                        name:
-                          - font-weight: bold
-                          - justify-self: end
-                    - type: custom:button-card
-                      entity: sensor.s7_max_ultra_battery
-                      show_name: false
-                      show_icon: true
-                      tap_action:
-                        action: call-service
-                        service: vacuum.locate
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                          - padding-top: 2px
-                        icon:
-                          - width: auto
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-columns: 1fr 1fr 1fr 1fr 1fr
-                    margin: 0
-                  cards:
-                    - type: custom:button-card
-                      icon: mdi:play
-                      tap_action:
-                        action: call-service
-                        service: vacuum.start
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                        icon:
-                          - color: "#4171c4"
-                          - height: 25px
-                    - type: custom:button-card
-                      icon: mdi:pause
-                      tap_action:
-                        action: call-service
-                        service: vacuum.pause
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                        icon:
-                          - color: "#b48149"
-                          - height: 25px
-                    - type: custom:button-card
-                      icon: mdi:stop
-                      tap_action:
-                        action: call-service
-                        service: vacuum.stop
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                        icon:
-                          - color: "#e36871"
-                          - height: 25px
-                    - type: custom:button-card
-                      icon: mdi:home-import-outline
-                      tap_action:
-                        action: call-service
-                        service: vacuum.return_to_base
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                        icon:
-                          - color: "#50ab53"
-                          - height: 25px
-                    - type: custom:button-card
-                      icon: mdi:map-marker-alert
-                      tap_action:
-                        action: call-service
-                        service: vacuum.locate
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                      styles:
-                        card:
-                          - background: none
-                          - border: none
-                        icon:
-                          - color: "#a558e8"
-                          - height: 25px
-          - type: custom:mod-card
-            card_mod: null
-            style: |
-              ha-card {
-                background: var(--card-background-color);
-                border-radius: 0;
-                }
-            card:
-              type: custom:layout-card
-              layout_type: grid
-              layout:
-                grid-template-columns: auto 225px 10px
+                grid-template-rows: 12px auto
                 margin: 0
               cards:
                 - type: custom:button-card
-                  name: Rooms
+                  name: Roborock S7
                   tap_action:
                     action: call-service
-                    service: script.toggle_clean_booleans
-                  styles:
-                    card:
-                      - background: none
-                      - border: none
-                      - padding-left: 15px
-                      - margin-right: 15px
-                      - margin-top: 2px
-                      - height: 100%
-                    name:
-                      - justify-self: start
-                      - font-size: 16px
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-columns: 55px 55px 55px 55px
-                    grid-template-rows: 30px 28px
-                    margin: 0
-                  cards:
-                    - type: custom:button-card
-                      icon: mdi:sofa
-                      entity: input_boolean.clean_living_room
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#a558e8' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#a558e8' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:fridge-variant
-                      entity: input_boolean.clean_kitchen
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#3fd1b9' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#3fd1b9' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:door
-                      entity: input_boolean.clean_hall
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#d49b3f' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#d49b3f' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:desk
-                      entity: input_boolean.clean_office
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#ebce86' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#ebce86' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:toilet
-                      entity: input_boolean.clean_bathroom
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#50ab53' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#50ab53' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:shower-head
-                      entity: input_boolean.clean_shower
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#4171c4' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#4171c4' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:bed-king-outline
-                      entity: input_boolean.clean_bedroom
-                      show_name: false
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                return entity.state === 'on' ? '#e36871' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                return entity.state === 'on' ? '#e36871' : '#524d43';
-                              ]]]
-          - type: custom:mod-card
-            card_mod: null
-            style: |
-              ha-card {
-                background: var(--card-background-color);
-                border-radius: 0;
-                height: 36px
-                }
-            card:
-              type: custom:layout-card
-              layout_type: grid
-              layout:
-                grid-template-columns: auto 225px 10px
-                margin: 0
-              cards:
-                - type: custom:button-card
-                  name: Fan
-                  tap_action:
-                    action: call-service
-                    service: vacuum.set_fan_speed
+                    service: vacuum.locate
                     service_data:
                       entity_id: vacuum.s7_max_ultra
-                      fan_speed: |
-                        [[[
-                          const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                          return fanSpeed === 'off' ? 'quiet' : 'off';
-                        ]]]
                   styles:
+                    name:
+                      - font-size: 16px
+                      - font-weight: bold
+                      - justify-self: start
                     card:
                       - background: none
                       - border: none
-                      - padding-left: 15px
-                      - height: 80%
+                      - border-radius: 0
+                      - padding-top: 0
+                - type: custom:button-card
+                  name: |
+                    [[[ 
+                      const status = states['sensor.s7_max_ultra_status']?.state; 
+                      const area = Math.round(states['sensor.s7_max_ultra_cleaning_area']?.state || 0);
+                      const progress = parseInt(states['sensor.s7_max_ultra_cleaning_progress']?.state || '0');
+
+                      const vacuumState = states['vacuum.s7_max_ultra']?.state;
+
+                      const formatStatus = () => {
+                      if (status === 'charging') return 'Ready';
+                      if (vacuumState === 'paused') return 'Paused';
+                      return 'Cleaning';
+                      };
+
+                        const formatTimeAgo = (timestamp) => {
+                          const now = new Date();
+                          const then = new Date(timestamp);
+                          const seconds = Math.floor((now - then) / 1000);
+
+                          if (isNaN(seconds) || seconds < 60) return 'just now';
+                          const minutes = Math.floor(seconds / 60);
+                          if (minutes < 60) return `${minutes} min ago`;
+                          const hours = Math.floor(minutes / 60);
+                          if (hours < 24) return `${hours} h ago`;
+                          const days = Math.floor(hours / 24);
+                          return `${days} d ago`;
+                        };
+
+                        if (progress === 0) {
+                          const endTime = states['sensor.s7_max_ultra_last_clean_end']?.state;
+                          const timeAgo = formatTimeAgo(endTime);
+                          return `${formatStatus()} • ${area} m² • ${timeAgo}`;
+                        }
+
+                      return `${formatStatus()} • ${area} m² • ${progress}%`;
+                    ]]]
+                  tap_action:
+                    action: call-service
+                    service: vacuum.locate
+                    service_data:
+                      entity_id: vacuum.s7_max_ultra
+                  styles:
                     name:
+                      - font-size: 10px
                       - justify-self: start
-                      - font-size: 16px
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-columns: 55px 55px 55px 55px
-                    margin: 0
-                  cards:
-                    - type: custom:button-card
-                      icon: mdi:fan
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: vacuum.set_fan_speed
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                          fan_speed: quiet
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return fanSpeed === 'off' ? '#524d43' : '#b48149';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return fanSpeed === 'off' ? '#524d43' : '#b48149';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:fan
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: vacuum.set_fan_speed
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                          fan_speed: balanced
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return (fanSpeed === 'balanced' || fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return (fanSpeed === 'balanced' || fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:fan
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: vacuum.set_fan_speed
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                          fan_speed: turbo
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return (fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return (fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:fan
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: vacuum.set_fan_speed
-                        service_data:
-                          entity_id: vacuum.s7_max_ultra
-                          fan_speed: max
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return fanSpeed === 'max' ? '#b48149' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
-                                return fanSpeed === 'max' ? '#b48149' : '#524d43';
-                              ]]]
-          - type: custom:mod-card
-            card_mod: null
-            style: |
-              ha-card {
-                background: var(--card-background-color);
-                border-radius: 0;
-                height: 36px
-                }
+                    card:
+                      - background: none
+                      - border: none
+            - type: custom:button-card
+              show_name: true
+              name: |
+                [[[
+                  const vacuumError = states['sensor.s7_max_ultra_vacuum_error']?.state;
+                  const dockError = states['sensor.s7_max_ultra_dock_error']?.state;
+
+                  if (vacuumError && vacuumError !== 'none') {
+                    let msg = vacuumError.replace(/_/g, ' ');
+                    return msg.charAt(0).toUpperCase() + msg.slice(1) + '!';
+                  }
+
+                  if (dockError && dockError !== 'ok') {
+                    let msg = dockError.replace(/_/g, ' ');
+                    return msg.charAt(0).toUpperCase() + msg.slice(1) + '!';
+                  }
+
+                  const mainBrush = parseFloat(states['sensor.s7_max_ultra_main_brush_time_left']?.state);
+                  if (!isNaN(mainBrush) && mainBrush <= 0) return 'Replace main brush!';
+
+                  const sideBrush = parseFloat(states['sensor.s7_max_ultra_side_brush_time_left']?.state);
+                  if (!isNaN(sideBrush) && sideBrush <= 0) return 'Replace side brush!';
+
+                  const sensor = parseFloat(states['sensor.s7_max_ultra_sensor_time_left']?.state);
+                  if (!isNaN(sensor) && sensor <= 0) return 'Clean sensor!';
+
+                  const filter = parseFloat(states['sensor.s7_max_ultra_filter_time_left']?.state);
+                  if (!isNaN(filter) && filter <= 0) return 'Replace filter!';
+
+                  return '';
+                ]]]
+              double_tap_action:
+                action: call-service
+                service: button.press
+                service_data:
+                  entity_id: |
+                    [[[
+                      const vacuumError = states['sensor.s7_max_ultra_vacuum_error']?.state;
+                      const dockError = states['sensor.s7_max_ultra_dock_error']?.state;
+
+                      if (vacuumError && vacuumError !== 'none') return '';
+                      if (dockError && dockError !== 'ok') return '';
+
+                      const mainBrush = parseFloat(states['sensor.s7_max_ultra_main_brush_time_left']?.state);
+                      if (!isNaN(mainBrush) && mainBrush <= 0) return 'button.s7_max_ultra_reset_main_brush_consumable';
+
+                      const sideBrush = parseFloat(states['sensor.s7_max_ultra_side_brush_time_left']?.state);
+                      if (!isNaN(sideBrush) && sideBrush <= 0) return 'button.s7_max_ultra_reset_side_brush_consumable';
+
+                      const sensor = parseFloat(states['sensor.s7_max_ultra_sensor_time_left']?.state);
+                      if (!isNaN(sensor) && sensor <= 0) return 'button.s7_max_ultra_reset_sensor_consumable';
+
+                      const filter = parseFloat(states['sensor.s7_max_ultra_filter_time_left']?.state);
+                      if (!isNaN(filter) && filter <= 0) return 'button.s7_max_ultra_reset_air_filter_consumable';
+
+                      return '';
+                    ]]]
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - font-size: 14px
+                  - color: "#e36871"
+                  - padding-top: 6px
+                name:
+                  - font-weight: bold
+                  - justify-self: end
+            - type: custom:button-card
+              entity: sensor.s7_max_ultra_battery
+              show_name: false
+              show_icon: true
+              tap_action:
+                action: call-service
+                service: vacuum.locate
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                  - padding-top: 2px
+                icon:
+                  - width: auto
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr
+            margin: 0
+          cards:
+            - type: custom:button-card
+              icon: mdi:play
+              tap_action:
+                action: call-service
+                service: vacuum.start
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                icon:
+                  - color: "#4171c4"
+                  - height: 25px
+            - type: custom:button-card
+              icon: mdi:pause
+              tap_action:
+                action: call-service
+                service: vacuum.pause
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                icon:
+                  - color: "#b48149"
+                  - height: 25px
+            - type: custom:button-card
+              icon: mdi:stop
+              tap_action:
+                action: call-service
+                service: vacuum.stop
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                icon:
+                  - color: "#e36871"
+                  - height: 25px
+            - type: custom:button-card
+              icon: mdi:home-import-outline
+              tap_action:
+                action: call-service
+                service: vacuum.return_to_base
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                icon:
+                  - color: "#50ab53"
+                  - height: 25px
+            - type: custom:button-card
+              icon: mdi:map-marker-alert
+              tap_action:
+                action: call-service
+                service: vacuum.locate
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+              styles:
+                card:
+                  - background: none
+                  - border: none
+                icon:
+                  - color: "#a558e8"
+                  - height: 25px
+  - type: custom:mod-card
+    card_mod: null
+    style: |
+      ha-card {
+        background: var(--card-background-color);
+        border-radius: 0;
+        }
+    card:
+      type: custom:layout-card
+      layout_type: grid
+      layout:
+        grid-template-columns: auto 225px 10px
+        margin: 0
+      cards:
+        - type: custom:button-card
+          name: Rooms
+          tap_action:
+            action: call-service
+            service: script.toggle_clean_booleans
+          styles:
             card:
-              type: custom:layout-card
+              - background: none
+              - border: none
+              - padding-left: 15px
+              - margin-right: 15px
+              - margin-top: 2px
+              - height: 100%
+            name:
+              - justify-self: start
+              - font-size: 16px
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-columns: 55px 55px 55px 55px
+            grid-template-rows: 30px 28px
+            margin: 0
+          cards:
+            - type: custom:button-card
+              icon: mdi:sofa
+              entity: input_boolean.clean_living_room
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#a558e8' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#a558e8' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:fridge-variant
+              entity: input_boolean.clean_kitchen
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#3fd1b9' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#3fd1b9' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:door
+              entity: input_boolean.clean_hall
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#d49b3f' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#d49b3f' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:desk
+              entity: input_boolean.clean_office
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#ebce86' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#ebce86' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:toilet
+              entity: input_boolean.clean_bathroom
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#50ab53' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#50ab53' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:shower-head
+              entity: input_boolean.clean_shower
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#4171c4' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#4171c4' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:bed-king-outline
+              entity: input_boolean.clean_bedroom
+              show_name: false
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        return entity.state === 'on' ? '#e36871' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        return entity.state === 'on' ? '#e36871' : '#524d43';
+                      ]]]
+  - type: custom:mod-card
+    card_mod: null
+    style: |
+      ha-card {
+        background: var(--card-background-color);
+        border-radius: 0;
+        height: 36px
+        }
+    card:
+      type: custom:layout-card
+      layout_type: grid
+      layout:
+        grid-template-columns: auto 225px 10px
+        margin: 0
+      cards:
+        - type: custom:button-card
+          name: Fan
+          tap_action:
+            action: call-service
+            service: vacuum.set_fan_speed
+            service_data:
+              entity_id: vacuum.s7_max_ultra
+              fan_speed: |
+                [[[
+                  const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                  return fanSpeed === 'off' ? 'quiet' : 'off';
+                ]]]
+          styles:
+            card:
+              - background: none
+              - border: none
+              - padding-left: 15px
+              - height: 80%
+            name:
+              - justify-self: start
+              - font-size: 16px
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-columns: 55px 55px 55px 55px
+            margin: 0
+          cards:
+            - type: custom:button-card
+              icon: mdi:fan
+              show_name: false
+              tap_action:
+                action: call-service
+                service: vacuum.set_fan_speed
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+                  fan_speed: quiet
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return fanSpeed === 'off' ? '#524d43' : '#b48149';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return fanSpeed === 'off' ? '#524d43' : '#b48149';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:fan
+              show_name: false
+              tap_action:
+                action: call-service
+                service: vacuum.set_fan_speed
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+                  fan_speed: balanced
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return (fanSpeed === 'balanced' || fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return (fanSpeed === 'balanced' || fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:fan
+              show_name: false
+              tap_action:
+                action: call-service
+                service: vacuum.set_fan_speed
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+                  fan_speed: turbo
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return (fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return (fanSpeed === 'turbo' || fanSpeed === 'max') ? '#b48149' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:fan
+              show_name: false
+              tap_action:
+                action: call-service
+                service: vacuum.set_fan_speed
+                service_data:
+                  entity_id: vacuum.s7_max_ultra
+                  fan_speed: max
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return fanSpeed === 'max' ? '#b48149' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const fanSpeed = states['vacuum.s7_max_ultra']?.attributes?.fan_speed;
+                        return fanSpeed === 'max' ? '#b48149' : '#524d43';
+                      ]]]
+  - type: custom:mod-card
+    card_mod: null
+    style: |
+      ha-card {
+        background: var(--card-background-color);
+        border-radius: 0;
+        height: 36px
+        }
+    card:
+      type: custom:layout-card
+      layout_type: grid
+      layout:
+        grid-template-columns: auto 225px 10px
+        margin: 0
+      cards:
+        - type: custom:button-card
+          name: Mop
+          tap_action:
+            action: call-service
+            service: select.select_option
+            service_data:
+              entity_id: select.s7_max_ultra_mop_intensity
+              option: |
+                [[[
+                  const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                  return mopIntensity === 'off' ? 'mild' : 'off';
+                ]]]
+          styles:
+            card:
+              - background: none
+              - border: none
+              - padding-left: 15px
+              - height: 80%
+            name:
+              - justify-self: start
+              - font-size: 16px
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-columns: 55px 55px 55px 55px
+            margin: 0
+          cards:
+            - type: custom:button-card
+              icon: mdi:water
+              show_name: false
+              tap_action:
+                action: call-service
+                service: select.select_option
+                service_data:
+                  entity_id: select.s7_max_ultra_mop_intensity
+                  option: mild
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                        return mopIntensity === 'off' ? '#524d43' : '#4171c4';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                        return mopIntensity === 'off' ? '#524d43' : '#4171c4';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:water
+              show_name: false
+              tap_action:
+                action: call-service
+                service: select.select_option
+                service_data:
+                  entity_id: select.s7_max_ultra_mop_intensity
+                  option: moderate
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                        return (mopIntensity === 'moderate' || mopIntensity === 'intense') ? '#4171c4' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                        return (mopIntensity === 'moderate' || mopIntensity === 'intense') ? '#4171c4' : '#524d43';
+                      ]]]
+            - type: custom:button-card
+              icon: mdi:water
+              show_name: false
+              tap_action:
+                action: call-service
+                service: select.select_option
+                service_data:
+                  entity_id: select.s7_max_ultra_mop_intensity
+                  option: intense
+              styles:
+                card:
+                  - width: 50px
+                  - height: 28px
+                  - border-color: |
+                      [[[
+                        const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                        return mopIntensity === 'intense' ? '#4171c4' : '#524d43';
+                      ]]]
+                icon:
+                  - color: |
+                      [[[
+                        const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
+                        return mopIntensity === 'intense' ? '#4171c4' : '#524d43';
+                      ]]]
+  - type: custom:mod-card
+    card_mod: null
+    style: |
+      ha-card {
+        background: var(--card-background-color);
+        border-radius: 0 0 15px 15px;
+        height: 124px;
+        }
+    card:
+      type: custom:layout-card
+      layout_type: grid
+      layout:
+        grid-template-columns: auto 225px 10px
+        margin: 0
+      cards:
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-columns: 10px 140px auto
+            margin: 0
+            height: 120px
+          cards:
+            - type: custom:button-card
+              color_type: blank-card
+            - type: picture-elements
+              image: image.s7_max_ultra_map_0
+              elements:
+                - type: image
+                  entity: image.s7_max_ultra_map_0
+                  image: image.s7_max_ultra_map_0
+                  style:
+                    top: 73%
+                    left: 50%
+                    width: 210%
+                - type: custom:button-card
+                  color_type: blank-card
+        - type: custom:layout-card
+          layout_type: grid
+          layout:
+            grid-template-rows: 40px 60px 12px
+            margin: 0
+          cards:
+            - type: custom:layout-card
               layout_type: grid
               layout:
-                grid-template-columns: auto 225px 10px
+                grid-template-columns: 105px 55px 55px
                 margin: 0
               cards:
                 - type: custom:button-card
-                  name: Mop
-                  tap_action:
-                    action: call-service
-                    service: select.select_option
-                    service_data:
-                      entity_id: select.s7_max_ultra_mop_intensity
-                      option: |
-                        [[[
-                          const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                          return mopIntensity === 'off' ? 'mild' : 'off';
-                        ]]]
+                  name: Repeat
                   styles:
                     card:
-                      - background: none
                       - border: none
-                      - padding-left: 15px
-                      - height: 80%
                     name:
                       - justify-self: start
+                      - padding-left: 5px
                       - font-size: 16px
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-columns: 55px 55px 55px 55px
-                    margin: 0
-                  cards:
-                    - type: custom:button-card
-                      icon: mdi:water
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: select.select_option
-                        service_data:
-                          entity_id: select.s7_max_ultra_mop_intensity
-                          option: mild
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                                return mopIntensity === 'off' ? '#524d43' : '#4171c4';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                                return mopIntensity === 'off' ? '#524d43' : '#4171c4';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:water
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: select.select_option
-                        service_data:
-                          entity_id: select.s7_max_ultra_mop_intensity
-                          option: moderate
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                                return (mopIntensity === 'moderate' || mopIntensity === 'intense') ? '#4171c4' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                                return (mopIntensity === 'moderate' || mopIntensity === 'intense') ? '#4171c4' : '#524d43';
-                              ]]]
-                    - type: custom:button-card
-                      icon: mdi:water
-                      show_name: false
-                      tap_action:
-                        action: call-service
-                        service: select.select_option
-                        service_data:
-                          entity_id: select.s7_max_ultra_mop_intensity
-                          option: intense
-                      styles:
-                        card:
-                          - width: 50px
-                          - height: 28px
-                          - border-color: |
-                              [[[
-                                const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                                return mopIntensity === 'intense' ? '#4171c4' : '#524d43';
-                              ]]]
-                        icon:
-                          - color: |
-                              [[[
-                                const mopIntensity = states['select.s7_max_ultra_mop_intensity']?.state;
-                                return mopIntensity === 'intense' ? '#4171c4' : '#524d43';
-                              ]]]
-          - type: custom:mod-card
-            card_mod: null
-            style: |
-              ha-card {
-                background: var(--card-background-color);
-                border-radius: 0 0 15px 15px;
-                height: 124px;
-                }
-            card:
-              type: custom:layout-card
-              layout_type: grid
-              layout:
-                grid-template-columns: auto 225px 10px
-                margin: 0
-              cards:
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-columns: 10px 140px auto
-                    margin: 0
-                    height: 120px
-                  cards:
-                    - type: custom:button-card
-                      color_type: blank-card
-                    - type: picture-elements
-                      image: image.s7_max_ultra_map_0
-                      elements:
-                        - type: image
-                          entity: image.s7_max_ultra_map_0
-                          image: image.s7_max_ultra_map_0
-                          style:
-                            top: 73%
-                            left: 50%
-                            width: 210%
-                        - type: custom:button-card
-                          color_type: blank-card
-                - type: custom:layout-card
-                  layout_type: grid
-                  layout:
-                    grid-template-rows: 40px 60px 12px
-                    margin: 0
-                  cards:
-                    - type: custom:layout-card
-                      layout_type: grid
-                      layout:
-                        grid-template-columns: 105px 55px 55px
-                        margin: 0
-                      cards:
-                        - type: custom:button-card
-                          name: Repeat
-                          styles:
-                            card:
-                              - border: none
-                            name:
-                              - justify-self: start
-                              - padding-left: 5px
-                              - font-size: 16px
-                        - type: custom:button-card
-                          name: x1
-                          show_icon: false
-                          tap_action:
-                            action: call-service
-                            service: input_boolean.turn_off
-                            service_data:
-                              entity_id: input_boolean.clean_twice
-                          styles:
-                            card:
-                              - width: 50px
-                              - height: 28px
-                              - border-color: |
-                                  [[[
-                                    const cleanTwice = states['input_boolean.clean_twice']?.state;
-                                    return cleanTwice === 'on' ? '#524d43' : '#a558e8';
-                                  ]]]
-                            name:
-                              - color: |
-                                  [[[
-                                    const cleanTwice = states['input_boolean.clean_twice']?.state;
-                                    return cleanTwice === 'on' ? '#524d43' : '#a558e8';
-                                  ]]]
-                        - type: custom:button-card
-                          name: x2
-                          show_icon: false
-                          tap_action:
-                            action: call-service
-                            service: input_boolean.turn_on
-                            service_data:
-                              entity_id: input_boolean.clean_twice
-                          styles:
-                            card:
-                              - width: 50px
-                              - height: 28px
-                              - border-color: |
-                                  [[[
-                                    const cleanTwice = states['input_boolean.clean_twice']?.state;
-                                    return cleanTwice === 'off' ? '#524d43' : '#e36871';
-                                  ]]]
-                            name:
-                              - color: |
-                                  [[[
-                                    const cleanTwice = states['input_boolean.clean_twice']?.state;
-                                    return cleanTwice === 'off' ? '#524d43' : '#e36871';
-                                  ]]]
-                    - type: custom:button-card
-                      name: |
-                        [[[ 
-                          const status = states['sensor.s7_max_ultra_status']?.state;
-                          const vacuumState = states['vacuum.s7_max_ultra']?.state;
-
-                          if (status === 'charging') return 'Go Clean !';
-                          if (vacuumState === 'paused') return 'Paused';
-                          return 'Busy !';
-                        ]]]
-                      tap_action:
-                        action: call-service
-                        service: script.clean_selected_rooms
-                      custom_fields:
-                        progress: |
+                - type: custom:button-card
+                  name: x1
+                  show_icon: false
+                  tap_action:
+                    action: call-service
+                    service: input_boolean.turn_off
+                    service_data:
+                      entity_id: input_boolean.clean_twice
+                  styles:
+                    card:
+                      - width: 50px
+                      - height: 28px
+                      - border-color: |
                           [[[
-                            const progress = parseInt(states['sensor.s7_max_ultra_cleaning_progress']?.state || '0');
-                            return progress > 0
-                              ? `<div style="
-                                    height: 100%;
-                                    width: ${progress}%;
-                                    background-color: #50ab5360;
-                                    position: absolute;
-                                    top: 0;
-                                    left: 0;
-                                    border-radius: var(--button-card-border-radius);
-                                    z-index: 0;">
-                                  </div>`
-                              : '';
+                            const cleanTwice = states['input_boolean.clean_twice']?.state;
+                            return cleanTwice === 'on' ? '#524d43' : '#a558e8';
                           ]]]
-                      styles:
-                        card:
-                          - height: 55px
-                          - width: 215px
-                          - position: relative
-                          - overflow: hidden
-                          - z-index: 1
-                          - color: |
-                              [[[ 
-                                const status = states['sensor.s7_max_ultra_status']?.state;
-                                return status === 'charging' ? '#50ab53' : '#d49b3f';
-                              ]]]
-                          - border-color: |
-                              [[[ 
-                                const status = states['sensor.s7_max_ultra_status']?.state;
-                                return status === 'charging' ? '#50ab53' : '#d49b3f';
-                              ]]]
-                          - background-color: |
-                              [[[ 
-                                const status = states['sensor.s7_max_ultra_status']?.state;
-                                return status === 'charging' ? '#50ab5308' : '#d49b3f08';
-                              ]]]
-                        custom_fields:
-                          progress:
-                            - position: absolute
-                            - top: 0
-                            - left: 0
-                            - right: 0
-                            - bottom: 0
-                            - z-index: 0
-                    - type: custom:button-card
-                      name: >
-                        [[[
+                    name:
+                      - color: |
+                          [[[
+                            const cleanTwice = states['input_boolean.clean_twice']?.state;
+                            return cleanTwice === 'on' ? '#524d43' : '#a558e8';
+                          ]]]
+                - type: custom:button-card
+                  name: x2
+                  show_icon: false
+                  tap_action:
+                    action: call-service
+                    service: input_boolean.turn_on
+                    service_data:
+                      entity_id: input_boolean.clean_twice
+                  styles:
+                    card:
+                      - width: 50px
+                      - height: 28px
+                      - border-color: |
+                          [[[
+                            const cleanTwice = states['input_boolean.clean_twice']?.state;
+                            return cleanTwice === 'off' ? '#524d43' : '#e36871';
+                          ]]]
+                    name:
+                      - color: |
+                          [[[
+                            const cleanTwice = states['input_boolean.clean_twice']?.state;
+                            return cleanTwice === 'off' ? '#524d43' : '#e36871';
+                          ]]]
+            - type: custom:button-card
+              name: |
+                [[[ 
+                  const status = states['sensor.s7_max_ultra_status']?.state;
+                  const vacuumState = states['vacuum.s7_max_ultra']?.state;
 
-                        const areaRaw =
-                        Math.round(states['sensor.s7_max_ultra_total_cleaning_area']?.state
-                        || 0);
+                  if (status === 'charging') return 'Go Clean !';
+                  if (vacuumState === 'paused') return 'Paused';
+                  return 'Busy !';
+                ]]]
+              tap_action:
+                action: call-service
+                service: script.clean_selected_rooms
+              custom_fields:
+                progress: |
+                  [[[
+                    const progress = parseInt(states['sensor.s7_max_ultra_cleaning_progress']?.state || '0');
+                    return progress > 0
+                      ? `<div style="
+                            height: 100%;
+                            width: ${progress}%;
+                            background-color: #50ab5360;
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            border-radius: var(--button-card-border-radius);
+                            z-index: 0;">
+                          </div>`
+                      : '';
+                  ]]]
+              styles:
+                card:
+                  - height: 55px
+                  - width: 215px
+                  - position: relative
+                  - overflow: hidden
+                  - z-index: 1
+                  - color: |
+                      [[[ 
+                        const status = states['sensor.s7_max_ultra_status']?.state;
+                        return status === 'charging' ? '#50ab53' : '#d49b3f';
+                      ]]]
+                  - border-color: |
+                      [[[ 
+                        const status = states['sensor.s7_max_ultra_status']?.state;
+                        return status === 'charging' ? '#50ab53' : '#d49b3f';
+                      ]]]
+                  - background-color: |
+                      [[[ 
+                        const status = states['sensor.s7_max_ultra_status']?.state;
+                        return status === 'charging' ? '#50ab5308' : '#d49b3f08';
+                      ]]]
+                custom_fields:
+                  progress:
+                    - position: absolute
+                    - top: 0
+                    - left: 0
+                    - right: 0
+                    - bottom: 0
+                    - z-index: 0
+            - type: custom:button-card
+              name: >
+                [[[
 
-                        const area = areaRaw.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
-                        ".");
+                const areaRaw =
+                Math.round(states['sensor.s7_max_ultra_total_cleaning_area']?.state
+                || 0);
 
-                        const time =
-                        Math.round((states['sensor.s7_max_ultra_total_cleaning_time']?.state
-                        || 0) / 3600);
+                const area = areaRaw.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
+                ".");
 
-                        return area + ' m²
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; •
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ODO
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; •
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + time + ' h'
+                const time =
+                Math.round((states['sensor.s7_max_ultra_total_cleaning_time']?.state
+                || 0) / 3600);
 
-                        ]]]
-                      styles:
-                        card:
-                          - height: 15px
-                          - width: 215px
-                          - border: none
-                        name:
-                          - font-size: 10px
-                          - color: "#524d43"
+                return area + ' m²
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; •
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ODO
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; •
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ' + time + ' h'
 
+                ]]]
+              styles:
+                card:
+                  - height: 15px
+                  - width: 215px
+                  - border: none
+                name:
+                  - font-size: 10px
+                  - color: "#524d43"
