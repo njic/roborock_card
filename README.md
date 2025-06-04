@@ -17,7 +17,7 @@ roborock_card.yaml contains card yaml code
 ### How to use this card
 Note this is a "quickly" writen and not tested guide (and card), made by non-expert:
 
-1. Install HACS and all necessary cards ([card-mod](https://github.com/thomasloven/lovelace-card-mod) and [button-card](https://github.com/custom-cards/button-card). Layout card and Picture elements card are in defeault HA system if I'm not wrong.
+1. Install HACS and all necessary cards ([card-mod](https://github.com/thomasloven/lovelace-card-mod)) and [button-card](https://github.com/custom-cards/button-card). Layout card and Picture elements card are in defeault HA system if I'm not wrong.
 2. Install Roborock integration [check docs](https://www.home-assistant.io/integrations/roborock/)
 3. Fetch room numbers (Developer tools -> Actions -> Roborock: Get maps) and remember that. It should look like this:
 
