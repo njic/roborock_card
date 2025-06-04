@@ -38,41 +38,41 @@ vacuum.s7_max_ultra:
 ```
 4. Check entity names (Developer tools -> States):
 
-sensor.s7_max_ultra_status  (charging = Ready, otherwise = Cleaning)
-![image](https://github.com/user-attachments/assets/d356f815-53a8-4d02-a48d-f488e86c4f3f)
+sensor.s7_max_ultra_status  (charging = Ready, otherwise = Cleaning)  
+![image](guide/status.png)
 
-sensor.s7_max_ultra_current_room
-![image](https://github.com/user-attachments/assets/1eb305a0-98d6-43d4-940d-eb4ae1548f3f)
+sensor.s7_max_ultra_current_room  
+![image](guide/room.png)
 
-vacuum.s7_max_ultra (fan speed and running actions for play, pause, stop, return to dock, locate, set fan speed)
-![image](https://github.com/user-attachments/assets/d446af2d-d898-4b86-bcf6-c4a41e4c2e37)
+vacuum.s7_max_ultra (fan speed and running actions for play, pause, stop, return to dock, locate, set fan speed)  
+![image](guide/vacuum.png)
 
-sensor.s7_max_ultra_cleaning_area
-![image](https://github.com/user-attachments/assets/d80def6a-6500-4e56-996d-6f871d7fa3c1)
+sensor.s7_max_ultra_cleaning_area  
+![image](guide/area.png)
 
-sensor.s7_max_ultra_cleaning_progress
-![image](https://github.com/user-attachments/assets/f3ea3b6a-81b2-4a91-a3d3-56661573603b)
+sensor.s7_max_ultra_cleaning_progress  
+![image](guide/progress.png)
 
-sensor.s7_max_ultra_last_clean_end
-![image](https://github.com/user-attachments/assets/401005eb-1d01-4bf5-8083-b065df68f70b)
+sensor.s7_max_ultra_last_clean_end  
+![image](guide/lastend.png)
 
-sensor.s7_max_ultra_vacuum_error
-![image](https://github.com/user-attachments/assets/8c5e769b-6dbd-4492-8a78-ff2c6faa464f)
+sensor.s7_max_ultra_vacuum_error  
+![image](guide/vacuumerror.png)
 
-sensor.s7_max_ultra_dock_error
-![image](https://github.com/user-attachments/assets/3508d603-9b69-4c98-a43d-cddc7b64987f)
+sensor.s7_max_ultra_dock_error  
+![image](guide/dockerror.png)
 
-sensor.s7_max_ultra_battery
-![image](https://github.com/user-attachments/assets/c77f7704-127a-4384-9b88-f7d247c8c1c2)
+sensor.s7_max_ultra_battery  
+![image](guide/battery.png)
 
-image.s7_max_ultra_map_0
-![image](https://github.com/user-attachments/assets/e36c196a-0168-498b-8a00-597a6dba7f9a)
+image.s7_max_ultra_map_0  
+![image](guide/map.png)
 
-sensor.s7_max_ultra_total_cleaning_area
-![image](https://github.com/user-attachments/assets/805a3da9-6ff1-4a71-8aaf-3a1e450f1562)
+sensor.s7_max_ultra_total_cleaning_area  
+![image](guide/totalarea.png)
 
-sensor.s7_max_ultra_total_cleaning_time
-![image](https://github.com/user-attachments/assets/e8617578-bd29-433b-b072-a218f1b89aa9)
+sensor.s7_max_ultra_total_cleaning_time  
+![image](guide/totaltime.png)
 
 5.a Add roborock_config.yaml to your configuration.yaml and restart HA
 5.b Alternatively (to make it cleaner): create a folder "Packages" in root HA folder and add this to configuration.yaml:
