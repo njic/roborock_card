@@ -75,6 +75,7 @@ sensor.s7_max_ultra_total_cleaning_time
 ![image](guide/totaltime.png)
 
 5.a Add roborock_config.yaml to your configuration.yaml and restart HA
+
 5.b Alternatively (to make it cleaner): create a folder "Packages" in root HA folder and add this to configuration.yaml:
 ```
 homeassistant:
